@@ -79,7 +79,7 @@ def find_words_in_rack(rack):
             words_in_rack.append(item.upper()) 
     return words_in_rack
 
-def find_longest_words_in_rack(rack):
+def find_longest_words_in_rack(rack): # returns a dictionary, key = max word length, value = all words of that length that can be made.
     words_in_rack = find_words_in_rack(rack)
     max_length = len(max(words_in_rack, key=len))
     longest_words_in_rack = list(filter(lambda a: len(a) == max_length, words_in_rack))
@@ -108,12 +108,4 @@ def find_max_score_word_triple(rack):
                 max_triple_score = score
     return {max_triple_score: best_word}
 
-# test code:
 
-test_rack = ['A', 'C', 'E', 'R', 'X', 'Y', 'Z']
-
-print(find_words_in_rack(test_rack))     
-print(find_longest_words_in_rack(test_rack))
-print(find_highest_score_in_rack(test_rack))
-print(find_max_score_words_in_rack(test_rack))
-print(find_max_score_word_triple(test_rack))
