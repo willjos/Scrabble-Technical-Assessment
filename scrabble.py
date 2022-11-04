@@ -99,10 +99,10 @@ def find_words_in_rack(rack):
     with open('dictionary.txt', 'r') as f:
         for line in f:
             split_line = list(line.strip('\n').upper())
-            if all(letter in rack for letter in split_line):
-                words_in_rack.append(line.strip('\n').upper())
+            if all(letter in rack for letter in split_line): # this currently doesn't account for duplicate letters. 
+                words_in_rack.append(line.strip('\n').upper()) # (i.e creeper is appended even though we only have one 'E')
     return words_in_rack
-            
+
             # check if every letter of the stripped line is in the rack
             # split up the line
             # loop through each letter of the line
