@@ -1,7 +1,15 @@
 import random
 
+def get_word_list():
+    with open('dictionary.txt', 'r') as f:
+        file_data = f.read()
+        word_list = file_data.split('\n')
+    return word_list
+
+word_list = get_word_list()
+
 tile_dict = {
-    1:  ['E', 'A', 'I', 'O', 'N', 'R', 'T', 'L', 'S', 'U'], # dict keys integers?
+    1:  ['E', 'A', 'I', 'O', 'N', 'R', 'T', 'L', 'S', 'U'],
     2:  ['D', 'G'],
     3:  ['B', 'C', 'M', 'P'],
     4:  ['F', 'H', 'V', 'W', 'Y'],
@@ -49,31 +57,28 @@ def generate_rack(shuffled_bag):
     return rack
 
 def check_valid_word(word):
-    is_valid = 0
-    with open('dictionary.txt', 'r') as f:
-        for line in f:
-            if line.strip('\n') == word:
-                is_valid = 1
-    return is_valid     
+    if word in word_list:
+        return 1
+    else:
+        return 0 
 
 def find_words_in_rack(rack):
     words_in_rack = []
-    with open('dictionary.txt', 'r') as f:
-        for line in f:
-            rack_copy = rack.copy()   # copy of the rack to work with 
-            split_line = list(line.strip('\n').upper()) # list version of the current word to work with 
-            is_in_rack = 0
-            for letter in split_line:   # loop through each letter in the line
-                if letter in rack_copy: # if the letter is in the rack copy, is in rack is true and we remove that letter from the rack copy
-                    is_in_rack = 1
-                    rack_copy.remove(letter) # this is where the magic happens...
-                else:                   # if the letter is not in the rack copy, we know the word can't be made so we move on to the next line
-                    is_in_rack = 0
-                    break
-            if(is_in_rack):
-                words_in_rack.append(line.strip('\n').upper()) # consider converting dict to list and stripping all \n.     
+    for item in word_list:
+        rack_copy = rack.copy()   # copy of the rack to work with 
+        split_item = list(item.upper()) # list version of the current word to work with 
+        is_in_rack = 0
+        for letter in split_item:   # loop through each letter in the line
+            if letter in rack_copy: # if the letter is in the rack copy, is in rack is true and we remove that letter from the rack copy
+                is_in_rack = 1
+                rack_copy.remove(letter) # this is where the magic happens... duplicates are accounted for.
+            else:                   # if the letter is not in the rack copy, we know the word can't be made so we move on to the next line
+                is_in_rack = 0
+                break
+        if(is_in_rack):
+            words_in_rack.append(item.upper()) 
     return words_in_rack
-    
+
 def find_longest_words_in_rack(rack):
     words_in_rack = find_words_in_rack(rack)
     max_length = len(max(words_in_rack, key=len))
