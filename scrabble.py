@@ -1,41 +1,33 @@
 import random
 
-tile_dict = {'one_pt': ['E', 'A', 'I', 'O', 'N', 'R', 'T', 'L', 'S', 'U'], # dict keys integers?
-'two_pt': ['D', 'G'],
-'three_pt': ['B', 'C', 'M', 'P'],
-'four_pt': ['F', 'H', 'V', 'W', 'Y'],
-'five_pt': ['K'],
-'eight_pt': ['J', 'X'],
-'ten_pt': ['Q', 'Z']}
+tile_dict = {
+    1:  ['E', 'A', 'I', 'O', 'N', 'R', 'T', 'L', 'S', 'U'], # dict keys integers?
+    2:  ['D', 'G'],
+    3:  ['B', 'C', 'M', 'P'],
+    4:  ['F', 'H', 'V', 'W', 'Y'],
+    5:  ['K'],
+    8:  ['J', 'X'],
+    10: ['Q', 'Z']
+}
 
-tile_distribution = {'twelve_occ': ['E'],
-'nine_occ': ['A', 'I'],
-'eight_occ': ['O'],
-'six_occ': ['N', 'R', 'T'],
-'four_occ': ['L', 'S', 'U', 'D'],
-'three_occ': ['G'],
-'two_occ': ['B', 'C', 'M', 'P', 'F', 'H', 'V', 'W', 'Y'],
-'one_tile': ['K', 'J', 'X', 'Q', 'Z']
+tile_distribution = {
+    12: ['E'],
+    9:  ['A', 'I'],
+    8:  ['O'],
+    6:  ['N', 'R', 'T'],
+    4:  ['L', 'S', 'U', 'D'],
+    3:  ['G'],
+    2:  ['B', 'C', 'M', 'P', 'F', 'H', 'V', 'W', 'Y'],
+    1:  ['K', 'J', 'X', 'Q', 'Z']
 }
 
 def score_for_word(word):
     word_list = list(word.upper())
     score = 0
-    for letter in word_list: # if keys were integers, loop through tile dict for each tile dict, if letter in tile dict , score += key for tile dict
-        if letter in tile_dict['one_pt']:
-            score += 1
-        elif letter in tile_dict['two_pt']:
-            score += 2
-        elif letter in tile_dict['three_pt']:
-            score += 3
-        elif letter in tile_dict['four_pt']:
-            score += 4
-        elif letter in tile_dict['five_pt']:
-            score += 5
-        elif letter in tile_dict['eight_pt']:
-            score += 8
-        elif letter in tile_dict['ten_pt']:
-            score += 10
+    for letter in word_list:
+        for key in tile_dict:
+            if letter in tile_dict[key]:
+                score += key
     return score
 
 def generate_bag():
@@ -151,10 +143,10 @@ def find_max_score_word_triple(rack): # this doesn't work, ZAX is better..
 
 # test code:
 
-test_rack = ['A', 'C', 'E', 'R', 'X', 'Y', 'Z']
+# test_rack = ['A', 'C', 'E', 'R', 'X', 'Y', 'Z']
 
-print(find_words_in_rack(test_rack))     
-print(find_longest_words_in_rack(test_rack))
-print(find_highest_score_in_rack(test_rack))
-print(find_max_score_words_in_rack(test_rack))
-print(find_max_score_word_triple(test_rack))
+# print(find_words_in_rack(test_rack))     
+# print(find_longest_words_in_rack(test_rack))
+# print(find_highest_score_in_rack(test_rack))
+# print(find_max_score_words_in_rack(test_rack))
+# print(find_max_score_word_triple(test_rack))
