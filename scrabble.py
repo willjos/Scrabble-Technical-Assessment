@@ -32,39 +32,10 @@ def score_for_word(word):
 
 def generate_bag():
     tile_bag = []
-    for current_key in tile_distribution:
-        if current_key == 'twelve_occ':
-            for i in range(12):
-                for tile in tile_distribution['twelve_occ']:
-                    tile_bag.append(tile)
-        if current_key == 'nine_occ':
-            for i in range(9):
-                for tile in tile_distribution['nine_occ']:
-                    tile_bag.append(tile)
-        if current_key == 'eight_occ':
-            for i in range(8):
-                for tile in tile_distribution['eight_occ']:
-                    tile_bag.append(tile)
-        if current_key == 'six_occ':
-            for i in range(6):
-                for tile in tile_distribution['six_occ']:
-                    tile_bag.append(tile)
-        if current_key == 'four_occ':
-            for i in range(4):
-                for tile in tile_distribution['four_occ']:
-                    tile_bag.append(tile)
-        if current_key == 'three_occ':
-            for i in range(3):
-                for tile in tile_distribution['three_occ']:
-                    tile_bag.append(tile)
-        if current_key == 'two_occ':
-            for i in range(2):
-                for tile in tile_distribution['two_occ']:
-                    tile_bag.append(tile)
-        if current_key == 'one_occ':
-            for i in range(1):
-                for tile in tile_distribution['one_occ']:
-                    tile_bag.append(tile)
+    for key in tile_distribution:
+        for i in range(key):
+            for tile in tile_distribution[key]:
+                tile_bag.append(tile)
     return tile_bag
 
 def shuffle_bag(bag):
@@ -81,7 +52,7 @@ def check_valid_word(word):
     is_valid = 0
     with open('dictionary.txt', 'r') as f:
         for line in f:
-            if line.strip('\n') == word: # send to Seb
+            if line.strip('\n') == word:
                 is_valid = 1
     return is_valid     
 
@@ -120,7 +91,7 @@ def find_max_score_words_in_rack(rack):
     highest_scoring_words = [word for word in words_in_rack if(score_for_word(word) == find_highest_score_in_rack(rack))]
     return {score_for_word(highest_scoring_words[0]): highest_scoring_words}
 
-def find_max_score_word_triple(rack): # this doesn't work, ZAX is better..
+def find_max_score_word_triple(rack):
     words_in_rack = find_words_in_rack(rack)
     max_triple_score = 0
     best_word = ''
