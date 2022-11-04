@@ -1,14 +1,14 @@
 import random
 
-def get_word_list():
+def get_word_list(): # reads the dictionary.txt file and converts it to a list of words
     with open('dictionary.txt', 'r') as f:
         file_data = f.read()
         word_list = file_data.split('\n')
     return word_list
 
-word_list = get_word_list()
+word_list = get_word_list() # the list of allowed words for the scrabble game.
 
-tile_dict = {
+tile_dict = { # sets how many points each tile is worth.
     1:  ['E', 'A', 'I', 'O', 'N', 'R', 'T', 'L', 'S', 'U'],
     2:  ['D', 'G'],
     3:  ['B', 'C', 'M', 'P'],
@@ -18,7 +18,7 @@ tile_dict = {
     10: ['Q', 'Z']
 }
 
-tile_distribution = {
+tile_distribution = { # sets how many occurrences of a tile there are in a fresh bag.
     12: ['E'],
     9:  ['A', 'I'],
     8:  ['O'],
@@ -29,7 +29,7 @@ tile_distribution = {
     1:  ['K', 'J', 'X', 'Q', 'Z']
 }
 
-def score_for_word(word):
+def score_for_word(word): # calculates the score for a given word.
     word_list = list(word.upper())
     score = 0
     for letter in word_list:
@@ -38,7 +38,7 @@ def score_for_word(word):
                 score += key
     return score
 
-def generate_bag():
+def generate_bag(): # generates a fresh bag of tiles
     tile_bag = []
     for key in tile_distribution:
         for i in range(key):
@@ -46,23 +46,23 @@ def generate_bag():
                 tile_bag.append(tile)
     return tile_bag
 
-def shuffle_bag(bag):
+def shuffle_bag(bag): # randomly shuffles a bag of tiles
     random.shuffle(bag)
     return bag
 
-def generate_rack(shuffled_bag):
+def generate_rack(shuffled_bag): # generates a rack of 7 tiles by taking them from a shuffled bag
     rack = []
     for i in range(7):
         rack.append(shuffled_bag.pop())
     return rack
 
-def check_valid_word(word):
+def check_valid_word(word): # checks if a word is contained in the dictionary
     if word in word_list:
         return 1
     else:
         return 0 
 
-def find_words_in_rack(rack):
+def find_words_in_rack(rack): # finds all valid words that could be formed from the rack.
     words_in_rack = []
     for item in word_list:
         rack_copy = rack.copy()   # copy of the rack to work with 
@@ -85,18 +85,18 @@ def find_longest_words_in_rack(rack): # returns a dictionary, key = max word len
     longest_words_in_rack = list(filter(lambda a: len(a) == max_length, words_in_rack))
     return {max_length: longest_words_in_rack}
 
-def find_highest_score_in_rack(rack):
+def find_highest_score_in_rack(rack): # returns a number - the highest possible score from the rack
     words_in_rack = find_words_in_rack(rack)
     scores_in_rack = list(map(score_for_word, words_in_rack))
     max_score_in_rack = max(scores_in_rack)
     return max_score_in_rack
 
-def find_max_score_words_in_rack(rack):
+def find_max_score_words_in_rack(rack): # returns a dictionary, key = max score in rack value = words that have this score.
     words_in_rack = find_words_in_rack(rack)
     highest_scoring_words = [word for word in words_in_rack if(score_for_word(word) == find_highest_score_in_rack(rack))]
     return {score_for_word(highest_scoring_words[0]): highest_scoring_words}
 
-def find_max_score_word_triple(rack):
+def find_max_score_word_triple(rack): # returns a dictionary, key = max score if any one letter is a triple, value = word
     words_in_rack = find_words_in_rack(rack)
     max_triple_score = 0
     best_word = ''
