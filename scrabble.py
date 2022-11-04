@@ -79,12 +79,21 @@ def generate_bag():
     return tile_bag
 
 def shuffle_bag(bag):
+    random.shuffle(bag)
+    return bag
 
+def generate_rack(shuffled_bag):
+    rack = []
+    for i in range(7):
+        rack.append(shuffled_bag.pop())
+    return rack
 
+def check_valid_word(word):
+    is_valid = 0
+    with open('dictionary.txt', 'r') as f:
+        for line in f:
+            if line.strip('\n') == word:
+                is_valid = 1
+    return is_valid     
 
-
-# def generate_rack(bag):
-#     empty_rack = []
-#     for i in range(7):
-
-
+print(check_valid_word('hello'))
