@@ -97,16 +97,25 @@ def check_valid_word(word):
 def find_words_in_rack(rack):
     words_in_rack = []
     with open('dictionary.txt', 'r') as f:
+    # Accounting for duplicates: loop through each line of the dictionary and check if the word can be made
         for line in f:
-            split_line = list(line.strip('\n').upper())
-            if all(letter in rack for letter in split_line): # this currently doesn't account for duplicate letters. 
-                words_in_rack.append(line.strip('\n').upper()) # (i.e creeper is appended even though we only have one 'E')
+            rack_copy = rack.copy()   # copy of the rack to work with 
+            split_line = list(line.strip('\n').upper()) # list version of the current word to work with 
+            is_in_rack = 0
+            for letter in split_line:   # loop through each letter in the line
+                if letter in rack_copy: # if the letter is in the rack copy, is in rack is true and we remove that letter from the rack copy
+                    is_in_rack = 1
+                    rack_copy.remove(letter)
+                else:                   # if the letter is not in the rack copy, we know the word can't be made so we move on to the next line
+                    is_in_rack = 0
+                    break
+            if(is_in_rack):
+                words_in_rack.append(line.strip('\n').upper())        
     return words_in_rack
-
-            # check if every letter of the stripped line is in the rack
-            # split up the line
-            # loop through each letter of the line
-            # check the letter exists in the rack
-            # if it doesn't, pass
-            # if all exist, add the stripped line to words in rack
-print(find_words_in_rack(['A', 'C', 'E', 'R', 'P', 'Z', 'X']))
+    
+def find_longest_word_in_rack(rack):
+    words_in_rack = find_words_in_rack(rack)
+    return max(words_in_rack, key=len)
+    
+print(find_words_in_rack(['A', 'C', 'E', 'R', 'P', 'Z', 'X']))     
+print(find_longest_word_in_rack(['A', 'C', 'E', 'R', 'P', 'Z', 'X']))
