@@ -1,3 +1,7 @@
+import random
+
+
+
 tile_dict = {'one_pt': ['E', 'A', 'I', 'O', 'N', 'R', 'T', 'L', 'S', 'U'],
 'two_pt': ['D', 'G'],
 'three_pt': ['B', 'C', 'M', 'P'],
@@ -38,10 +42,49 @@ def score_for_word(word):
     return score
 
 def generate_bag():
-    
+    tile_bag = []
+    for current_key in tile_distribution:
+        if current_key == 'twelve_occ':
+            for i in range(12):
+                for tile in tile_distribution['twelve_occ']:
+                    tile_bag.append(tile)
+        if current_key == 'nine_occ':
+            for i in range(9):
+                for tile in tile_distribution['nine_occ']:
+                    tile_bag.append(tile)
+        if current_key == 'eight_occ':
+            for i in range(8):
+                for tile in tile_distribution['eight_occ']:
+                    tile_bag.append(tile)
+        if current_key == 'six_occ':
+            for i in range(6):
+                for tile in tile_distribution['six_occ']:
+                    tile_bag.append(tile)
+        if current_key == 'four_occ':
+            for i in range(4):
+                for tile in tile_distribution['four_occ']:
+                    tile_bag.append(tile)
+        if current_key == 'three_occ':
+            for i in range(3):
+                for tile in tile_distribution['three_occ']:
+                    tile_bag.append(tile)
+        if current_key == 'two_occ':
+            for i in range(2):
+                for tile in tile_distribution['two_occ']:
+                    tile_bag.append(tile)
+        if current_key == 'one_occ':
+            for i in range(1):
+                for tile in tile_distribution['one_occ']:
+                    tile_bag.append(tile)
+    return tile_bag
 
-def generate_rack():
-    empty_rack = []
-    for i in range(0, 7):
+def shuffle_bag(bag):
+
+
+
+
+# def generate_rack(bag):
+#     empty_rack = []
+#     for i in range(7):
 
 
