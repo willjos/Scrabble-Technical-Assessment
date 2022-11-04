@@ -98,8 +98,8 @@ def find_words_in_rack(rack):
     words_in_rack = []
     with open('dictionary.txt', 'r') as f:
         for line in f:
-            split_line = line.strip('\n').upper().split()
-            if split_line in rack:
+            split_line = list(line.strip('\n').upper())
+            if all(letter in rack for letter in split_line):
                 words_in_rack.append(line.strip('\n').upper())
     return words_in_rack
             
