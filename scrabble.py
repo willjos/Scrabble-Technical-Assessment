@@ -42,7 +42,7 @@ def shuffle_bag(bag):
     random.shuffle(bag)
     return bag
 
-def generate_rack(shuffled_bag): # slice from 0 to 7 from shuffled bag
+def generate_rack(shuffled_bag):
     rack = []
     for i in range(7):
         rack.append(shuffled_bag.pop())
@@ -101,23 +101,14 @@ def find_max_score_word_triple(rack):
             if score > max_triple_score:
                 best_word = word
                 max_triple_score = score
-    return {best_word: max_triple_score}
-
-
-
-# loop through words in rack
-#       nest loop through each letter of the word
-#           calculate points for word if that letter is a triple.
-#           if points for the word > max_triple_score:
-#                max_triple_score = points for the word
-
+    return {max_triple_score: best_word}
 
 # test code:
 
-# test_rack = ['A', 'C', 'E', 'R', 'X', 'Y', 'Z']
+test_rack = ['A', 'C', 'E', 'R', 'X', 'Y', 'Z']
 
-# print(find_words_in_rack(test_rack))     
-# print(find_longest_words_in_rack(test_rack))
-# print(find_highest_score_in_rack(test_rack))
-# print(find_max_score_words_in_rack(test_rack))
-# print(find_max_score_word_triple(test_rack))
+print(find_words_in_rack(test_rack))     
+print(find_longest_words_in_rack(test_rack))
+print(find_highest_score_in_rack(test_rack))
+print(find_max_score_words_in_rack(test_rack))
+print(find_max_score_word_triple(test_rack))
